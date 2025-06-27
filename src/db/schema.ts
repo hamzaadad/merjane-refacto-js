@@ -3,7 +3,6 @@ import {
 	text, integer, sqliteTable, primaryKey,
 } from 'drizzle-orm/sqlite-core';
 
-// Declaring enum in database
 export const products = sqliteTable('products', {
 	id: integer('id').notNull().primaryKey(),
 	leadTime: integer('lead_time').notNull(),
@@ -27,7 +26,7 @@ export type OrderInsert = typeof orders.$inferInsert;
 
 export const ordersToProducts = sqliteTable('orders_to_products', {
 	orderId: integer('order_id').references(() => orders.id).notNull(),
-	productId: integer('product_id').references(() => products.id).notNull(),
+	productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
 }, t => ({
 	pk: primaryKey({columns: [t.orderId, t.productId]}),
 }));

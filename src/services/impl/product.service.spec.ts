@@ -24,7 +24,7 @@ describe('ProductService Tests', () => {
 		});
 	});
 
-	afterEach(async () => cleanUp(databaseName));
+	//afterEach(async () => cleanUp(databaseName));
 
 	it('should handle delay notification correctly', async () => {
 		// GIVEN

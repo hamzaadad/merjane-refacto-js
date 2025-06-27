@@ -20,6 +20,8 @@ export async function cleanAllLooseDatabases(prefix: string) {
 
 export async function cleanUp(databaseName: string) {
 	await rm(databaseName, {force: true});
+	await rm(databaseName + '-journal', { force: true }).catch(() => {});
+  	await rm(databaseName + '-wal', { force: true }).catch(() => {});
 }
 
 export async function createDatabaseMock() {

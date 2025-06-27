@@ -45,7 +45,8 @@ describe('MyController Integration Tests', () => {
 			await tx.insert(ordersToProducts).values(productList.map(p => ({orderId: order!.orderId, productId: p.productId})));
 			return order!.orderId;
 		});
-
+		const restul = await client.post(`/orders/${orderId}/processOrder`);
+		console.log(restul)
 		await client.post(`/orders/${orderId}/processOrder`).expect(200).expect('Content-Type', /application\/json/);
 
 		const resultOrder = await database.query.orders.findFirst({where: eq(orders.id, orderId)});

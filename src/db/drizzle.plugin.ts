@@ -17,6 +17,7 @@ const appConfig = CONFIG.get('app');
 export const drizzlePlugin: FastifyPluginAsync = fastifyPlugin(
 	async server => {
 		const sqlite = new SqliteDatabase(databaseConfig.url);
+		sqlite.pragma('journal_mode = WAL');
 		const database = drizzle(sqlite, {
 			schema,
 			...(appConfig.env === 'PROD' ? {} : {logger: true}),
